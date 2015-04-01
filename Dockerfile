@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM voor:java8
+FROM voor/java8
 
 ENV MAVEN_VERSION 3.2.5
 
