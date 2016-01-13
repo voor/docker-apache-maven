@@ -14,18 +14,18 @@
 
 FROM voor/java8
 
-ENV MAVEN_VERSION 3.2.5
+ENV MAVEN_VERSION 3.3.9
 
 # Ended up changing some of this to more closely align with https://github.com/carlossg/docker-maven
 
-RUN yum install -y tar &&\
+RUN dnf install -y tar &&\
   mkdir -p /usr/local/apache-maven &&\
   curl -Ls http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xz -C /usr/local/apache-maven &&\
   ln -sf /usr/local/apache-maven/apache-maven-$MAVEN_VERSION/bin/mvn /usr/local/bin/mvn &&\
   echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-$MAVEN_VERSION' >> /etc/profile.d/mvn.sh &&\
   echo 'export M2=\$M2_HOME/bin' >> /etc/profile.d/mvn.sh &&\
   echo 'export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"' >> /etc/profile.d/mvn.sh &&\
-  yum erase -y tar &&\
+  dnf erase -y tar &&\
   mvn -v
 
 CMD ["mvn"]
